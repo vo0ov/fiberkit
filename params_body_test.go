@@ -27,7 +27,7 @@ type updateTaskRequest struct {
 
 func TestParamsBodyParsesParamsAndBody(t *testing.T) {
 	app := fiber.New()
-	app.Patch("/tasks/:id", ParamsBody(func(ctx fiber.Ctx, params *updateTaskParams, body *updateTaskRequest) error {
+	app.Patch("/tasks/:id", ParamsBody(func(ctx fiber.Ctx, params updateTaskParams, body updateTaskRequest) error {
 		return ctx.JSON(fiber.Map{
 			"id":   params.ID,
 			"name": body.Name,
@@ -62,7 +62,7 @@ func TestParamsBodyParsesParamsAndBody(t *testing.T) {
 
 func TestParamsBodyValidatesBody(t *testing.T) {
 	app := fiber.New()
-	app.Patch("/tasks/:id", ParamsBody(func(ctx fiber.Ctx, params *updateTaskParams, body *updateTaskRequest) error {
+	app.Patch("/tasks/:id", ParamsBody(func(ctx fiber.Ctx, params updateTaskParams, body updateTaskRequest) error {
 		return ctx.JSON(body)
 	}))
 
@@ -90,7 +90,7 @@ func TestParamsBodyValidatesBody(t *testing.T) {
 
 func TestParamsBodyRejectsInvalidParams(t *testing.T) {
 	app := fiber.New()
-	app.Patch("/tasks/:id", ParamsBody(func(ctx fiber.Ctx, params *numericUpdateTaskParams, body *updateTaskRequest) error {
+	app.Patch("/tasks/:id", ParamsBody(func(ctx fiber.Ctx, params numericUpdateTaskParams, body updateTaskRequest) error {
 		return ctx.JSON(body)
 	}))
 
@@ -118,7 +118,7 @@ func TestParamsBodyRejectsInvalidParams(t *testing.T) {
 
 func TestParamsBodyRejectsInvalidJSON(t *testing.T) {
 	app := fiber.New()
-	app.Patch("/tasks/:id", ParamsBody(func(ctx fiber.Ctx, params *updateTaskParams, body *updateTaskRequest) error {
+	app.Patch("/tasks/:id", ParamsBody(func(ctx fiber.Ctx, params updateTaskParams, body updateTaskRequest) error {
 		return ctx.JSON(body)
 	}))
 
@@ -146,7 +146,7 @@ func TestParamsBodyRejectsInvalidJSON(t *testing.T) {
 
 func TestParamsBodyValidatesParams(t *testing.T) {
 	app := fiber.New()
-	app.Patch("/tasks/:id", ParamsBody(func(ctx fiber.Ctx, params *validatedUpdateTaskParams, body *updateTaskRequest) error {
+	app.Patch("/tasks/:id", ParamsBody(func(ctx fiber.Ctx, params validatedUpdateTaskParams, body updateTaskRequest) error {
 		return ctx.JSON(body)
 	}))
 

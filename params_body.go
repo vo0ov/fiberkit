@@ -3,7 +3,7 @@ package fiberkit
 import "github.com/gofiber/fiber/v3"
 
 // ParamsBody parses and validates both route params and request body.
-func ParamsBody[P any, B any](handler func(fiber.Ctx, *P, *B) error) fiber.Handler {
+func ParamsBody[P any, B any](handler func(fiber.Ctx, P, B) error) fiber.Handler {
 	return func(ctx fiber.Ctx) error {
 		var params P
 		if err := ctx.Bind().WithoutAutoHandling().SkipValidation(true).URI(&params); err != nil {
@@ -23,6 +23,6 @@ func ParamsBody[P any, B any](handler func(fiber.Ctx, *P, *B) error) fiber.Handl
 			return invalidValidation(ctx, err)
 		}
 
-		return handler(ctx, &params, &body)
+		return handler(ctx, params, body)
 	}
 }

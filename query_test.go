@@ -14,7 +14,7 @@ type listTasksQuery struct {
 
 func TestQueryParsesValues(t *testing.T) {
 	app := fiber.New()
-	app.Get("/tasks", Query(func(ctx fiber.Ctx, query *listTasksQuery) error {
+	app.Get("/tasks", Query(func(ctx fiber.Ctx, query listTasksQuery) error {
 		return ctx.JSON(query)
 	}))
 
@@ -40,7 +40,7 @@ func TestQueryParsesValues(t *testing.T) {
 
 func TestQueryValidatesInput(t *testing.T) {
 	app := fiber.New()
-	app.Get("/tasks", Query(func(ctx fiber.Ctx, query *listTasksQuery) error {
+	app.Get("/tasks", Query(func(ctx fiber.Ctx, query listTasksQuery) error {
 		return ctx.JSON(query)
 	}))
 
@@ -73,9 +73,9 @@ func TestQueryValidatesInput(t *testing.T) {
 	}
 }
 
-func TestQueryRejectsInvalidQueryValue(t *testing.T) {
+func TestQueryRejectsInvalidQueryInput(t *testing.T) {
 	app := fiber.New()
-	app.Get("/tasks", Query(func(ctx fiber.Ctx, query *listTasksQuery) error {
+	app.Get("/tasks", Query(func(ctx fiber.Ctx, query listTasksQuery) error {
 		return ctx.JSON(query)
 	}))
 

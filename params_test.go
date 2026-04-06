@@ -23,7 +23,7 @@ type validatedUserParams struct {
 func TestParamsWorkForMiddleware(t *testing.T) {
 	app := fiber.New()
 	app.Get("/users/:id",
-		Params(func(ctx fiber.Ctx, params *getUserParams) error {
+		Params(func(ctx fiber.Ctx, params getUserParams) error {
 			Set(ctx, "targetUserID", params.ID)
 			return ctx.Next()
 		}),
@@ -58,7 +58,7 @@ func TestParamsWorkForMiddleware(t *testing.T) {
 
 func TestParamsRejectsInvalidParamType(t *testing.T) {
 	app := fiber.New()
-	app.Get("/users/:id", Params(func(ctx fiber.Ctx, params *numericUserParams) error {
+	app.Get("/users/:id", Params(func(ctx fiber.Ctx, params numericUserParams) error {
 		return ctx.SendStatus(fiber.StatusNoContent)
 	}))
 
@@ -84,7 +84,7 @@ func TestParamsRejectsInvalidParamType(t *testing.T) {
 
 func TestParamsValidatesInput(t *testing.T) {
 	app := fiber.New()
-	app.Get("/users/:id", Params(func(ctx fiber.Ctx, params *validatedUserParams) error {
+	app.Get("/users/:id", Params(func(ctx fiber.Ctx, params validatedUserParams) error {
 		return ctx.SendStatus(fiber.StatusNoContent)
 	}))
 

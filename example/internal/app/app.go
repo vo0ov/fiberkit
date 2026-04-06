@@ -5,7 +5,7 @@ import (
 	"example/internal/middlewares"
 
 	"github.com/gofiber/fiber/v3"
-	"github.com/vo0ov/fiberkit/v2"
+	"github.com/vo0ov/fiberkit/v3"
 )
 
 func New() *fiber.App {

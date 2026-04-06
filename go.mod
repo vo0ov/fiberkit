@@ -1,4 +1,4 @@
-module github.com/vo0ov/fiberkit/v2
+module github.com/vo0ov/fiberkit/v3
 
 go 1.26.1
 

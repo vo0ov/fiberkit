@@ -30,7 +30,7 @@ app.Post("/tasks", func(ctx fiber.Ctx) error {
 ```go
 app.Post("/tasks", fiberkit.Body(CreateTask))
 
-func CreateTask(ctx fiber.Ctx, body *CreateTaskRequest) error {
+func CreateTask(ctx fiber.Ctx, body CreateTaskRequest) error {
 	return ctx.JSON(body)
 }
 ```
@@ -38,16 +38,16 @@ func CreateTask(ctx fiber.Ctx, body *CreateTaskRequest) error {
 ## Install 🚀
 
 ```bash
-go get github.com/vo0ov/fiberkit/v2
+go get github.com/vo0ov/fiberkit/v3
 ```
 
 ## API 🛠️
 
 ```go
-func Body[T any](handler func(fiber.Ctx, *T) error) fiber.Handler
-func Query[T any](handler func(fiber.Ctx, *T) error) fiber.Handler
-func Params[T any](handler func(fiber.Ctx, *T) error) fiber.Handler
-func ParamsBody[P any, B any](handler func(fiber.Ctx, *P, *B) error) fiber.Handler
+func Body[T any](handler func(fiber.Ctx, T) error) fiber.Handler
+func Query[T any](handler func(fiber.Ctx, T) error) fiber.Handler
+func Params[T any](handler func(fiber.Ctx, T) error) fiber.Handler
+func ParamsBody[P any, B any](handler func(fiber.Ctx, P, B) error) fiber.Handler
 
 func Set(ctx fiber.Ctx, key string, value any)
 func Get[T any](ctx fiber.Ctx, key string) *T
@@ -64,7 +64,7 @@ type CreateTaskRequest struct {
 
 app.Post("/tasks", fiberkit.Body(CreateTask))
 
-func CreateTask(ctx fiber.Ctx, body *CreateTaskRequest) error {
+func CreateTask(ctx fiber.Ctx, body CreateTaskRequest) error {
 	return ctx.Status(fiber.StatusCreated).JSON(body)
 }
 ```
@@ -78,7 +78,7 @@ type ListTasksQuery struct {
 
 app.Get("/tasks", fiberkit.Query(ListTasks))
 
-func ListTasks(ctx fiber.Ctx, query *ListTasksQuery) error {
+func ListTasks(ctx fiber.Ctx, query ListTasksQuery) error {
 	return ctx.JSON(query)
 }
 ```
@@ -92,7 +92,7 @@ type GetTaskParams struct {
 
 app.Get("/tasks/:id", fiberkit.Params(GetTask))
 
-func GetTask(ctx fiber.Ctx, params *GetTaskParams) error {
+func GetTask(ctx fiber.Ctx, params GetTaskParams) error {
 	return ctx.JSON(params)
 }
 ```
@@ -112,7 +112,7 @@ type UpdateTaskRequest struct {
 
 app.Patch("/tasks/:id", fiberkit.ParamsBody(UpdateTask))
 
-func UpdateTask(ctx fiber.Ctx, params *UpdateTaskParams, body *UpdateTaskRequest) error {
+func UpdateTask(ctx fiber.Ctx, params UpdateTaskParams, body UpdateTaskRequest) error {
 	return ctx.JSON(fiber.Map{
 		"id":   params.ID,
 		"name": body.Name,
@@ -135,7 +135,7 @@ type GetUserParams struct {
 
 type UserLoader struct{}
 
-func (l *UserLoader) Load(ctx fiber.Ctx, params *GetUserParams) error {
+func (l *UserLoader) Load(ctx fiber.Ctx, params GetUserParams) error {
 	fiberkit.Set(ctx, "targetUser", &User{ID: params.ID})
 	return ctx.Next()
 }

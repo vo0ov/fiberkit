@@ -4,8 +4,10 @@ go 1.26.1
 
 require (
 	github.com/gofiber/fiber/v3 v3.1.0
-	github.com/vo0ov/fiberkit/v2 v2.0.0
+	github.com/vo0ov/fiberkit/v3 v3.0.0
 )
+
+replace github.com/vo0ov/fiberkit/v3 => ..
 
 require (
 	github.com/andybalholm/brotli v1.2.0 // indirect
